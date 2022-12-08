@@ -1,5 +1,6 @@
 /*
     Problem Statement: Creating a table - In this table, customs officer will enter all the passengers information which will be further taken by the Uber Services
+    Outline: Administrator creates the table containing the information about all customs officers and also creates the table which will hold all passengers data in the future.
 */
 
 /* To check the current user - usually it will be admin while logging into the database */
@@ -21,13 +22,6 @@ CREATE TABLE CUSTOMS_OFFICERS
 );
 
 ALTER TABLE CUSTOMS_OFFICERS RENAME COLUMN OFFICER_NAME TO OFFICER_FULL_NAME;
-
-/* Only admin can add the customs officer */
-INSERT INTO CUSTOMS_OFFICERS (OFFICER_FULL_NAME) VALUES ('JOHN WESLEY');
-INSERT INTO CUSTOMS_OFFICERS (OFFICER_FULL_NAME) VALUES ('PETER RUSSO');
-INSERT INTO CUSTOMS_OFFICERS (OFFICER_FULL_NAME) VALUES ('BIANCO AJELLO');
-
-SELECT * FROM CUSTOMS_OFFICERS;
 
 /* Creating a passengers table in the database - has access to admin and customs officers. Mostly used by the customs officers to add the migrated passengers */
 CREATE TABLE PASSENGERS_DATA 
@@ -54,8 +48,6 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON PASSENGERS_DATA TO CUSTOMS_OFFICER;
 GRANT SELECT ON CUSTOMS_OFFICERS TO CUSTOMS_OFFICER;
 
 CONNECT CUSTOMS_OFFCER/Datahuskies123;
-
-SELECT * FROM PASSENGERS_DATA;
 
 /* Commiting the operations */
 COMMIT;

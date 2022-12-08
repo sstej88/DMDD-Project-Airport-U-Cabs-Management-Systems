@@ -1,5 +1,29 @@
+/*
+    Problem Statement: Creating a procedure to validate whether customs officer exists in the database and adding the passengers by the valid customs officer
+    Outline: Customs officer will be entering the passengers data after the customs check in the airport
+*/
+
 /* Setting server output on to get the output from procedueres */
 SET SERVEROUTPUT ON;
+
+/* Create procedure to add the customs officer in the database */
+CREATE OR REPLACE PROCEDURE ADD_TO_CUSTOMS_OFFICERS 
+(
+    INPUT_OFFICER_NAME IN VARCHAR2,
+    INPUT_OFFICER_COUNTRY IN VARCHAR2 DEFAULT 'USA'
+)
+AS
+BEGIN
+    IF INPUT_OFFICER_COUNTRY IN ('USA') THEN
+        INSERT INTO CUSTOMS_OFFICERS (OFFICER_FULL_NAME)
+        VALUES (INPUT_OFFICER_NAME);
+        DBMS_OUTPUT.PUT_LINE('OFFICER WITH NAME '||INPUT_OFFICER_NAME||' IS INSERTED');
+    ELSE
+        INSERT INTO CUSTOMS_OFFICERS (OFFICER_COUNTRY, OFFICER_FULL_NAME)
+        VALUES (INPUT_OFFICER_COUNTRY, INPUT_OFFICER_NAME);
+        DBMS_OUTPUT.PUT_LINE('OFFICER WITH NAME '||INPUT_OFFICER_NAME||' AND ORIGIN COUNTRY '||INPUT_OFFICER_COUNTRY||' IS INSERTED');
+    END IF;
+END;
 
 /* Create procedure to validate officer */
 CREATE OR REPLACE PROCEDURE VALIDATE_CUSTOMS_OFFICER

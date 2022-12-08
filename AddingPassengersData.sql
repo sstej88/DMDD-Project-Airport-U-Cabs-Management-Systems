@@ -1,3 +1,8 @@
+/*
+    Problem Statement: Using the procedures created, we will insert the data into the table "PASSENGERS_DATA"
+    Outline: When Customs officer enters the passengers data into his/her system, system will call these functions to enter the passengers data
+*/
+
 /* TRUNCATING TABLE PASSENGERS_DATA */
 TRUNCATE TABLE PASSENGERS_DATA;
 
