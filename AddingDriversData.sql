@@ -1,4 +1,4 @@
-
+/* Executing a procedure to add the driver in the database */
 EXEC ADD_DRIVER('Allaire');
 EXEC ADD_DRIVER('Babineaux');
 EXEC ADD_DRIVER('Gagnon');
@@ -7,6 +7,8 @@ EXEC ADD_DRIVER('Vincent');
 EXEC ADD_DRIVER('Roche');
 
 SELECT * FROM DRIVER_DETAILS;
+
+CREATE VIEW DRIVER_DETAILS_VIEW AS SELECT * FROM DRIVER_DETAILS;
 
 DROP TABLE DRIVER_DETAILS;
 

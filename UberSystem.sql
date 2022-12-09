@@ -1,3 +1,7 @@
+/*
+    Problem Stataement: Create a table named Uber services and associate the passengers entering the airports and cabs present with the Uber.
+    Outline: This is an automatic process taken care by Uber Systems. When a customs officer enter the passengers into the database, then Uber system will check them and associate them with the cabs ready for hiring passengers.
+*/
 CREATE TABLE UBER_SERVICES 
 (
     BOOKING_ID NUMBER(12) GENERATED ALWAYS as IDENTITY(START WITH 555555555555 INCREMENT BY 12),
@@ -13,8 +17,14 @@ CREATE TABLE UBER_SERVICES
     CONSTRAINT PK_UBER_SERVICES PRIMARY KEY (BOOKING_ID)
 );
 
+/* Adding foreign key with the passengers */
 ALTER TABLE UBER_SERVICES ADD FOREIGN KEY (PASSENGER_ID) REFERENCES PASSENGERS_DATA(PASSENGER_ID);
 
+/* 
+    Since we already have a passenger names and destination addresses in the passengers database, 
+    People working at Uber is not needed to enter the passengers details in the database again. 
+    They just need to take the data from already exisiting table and add that here for their usage. 
+*/
 CREATE OR REPLACE FUNCTION GET_PASSENGER_NAME_DATA (INPUT_PASSENGER_ID NUMBER) RETURN VARCHAR2
 AS
     OUTPUT_PASSENGER_NAME VARCHAR2(60);
@@ -35,6 +45,10 @@ BEGIN
     RETURN OUTPUT_PASSENGER_DESTINATION_ADDRESS;
 END;
 
+/*
+    Since cab numbers and all other cab details are already present in the cab details table, People working at Uber need not enter the details manually again.
+    They can just retrieve the data from the tables and can get the data for their usage.
+*/
 CREATE OR REPLACE FUNCTION GET_CAB_NUMBER (INPUT_CAB_ID NUMBER) RETURN VARCHAR2
 AS
     OUTPUT_CAB_NUMBER VARCHAR2(8);
@@ -85,6 +99,7 @@ BEGIN
     RETURN OUTPUT_DRIVER_RATING;
 END;
 
+/* Procedure for adding the data into the Uber Systems. This is usually done automatically by algorithms implemented in the Uber. */
 CREATE OR REPLACE PROCEDURE ADD_TO_UBER_SERVICES 
 (
     INPUT_PASSENGER_ID IN NUMBER,
@@ -112,6 +127,7 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('PASSENGER AND CAB DETAILS WERE ASSOCIATED AND INSERTED INTO UBER SERVICES MACHINE');
 END;
 
+/* To add the data into the Uber systems using above procedure, we need to have a cab ready to hire the passengers. This will be checked by the below function. */
 CREATE OR REPLACE FUNCTION IS_CAB_READY_TO_HIRE RETURN NUMBER
 AS
     IS_CAB_WAITING NUMBER;
@@ -120,6 +136,7 @@ BEGIN
     RETURN IS_CAB_WAITING;
 END;
 
+/* Since adding of data into the Uber Systems are done automatically whenever passengers are entered into database by immigration officers, we use trigger to associate the added passenger and open to hire cab and will add to the uber system */
 CREATE OR REPLACE TRIGGER UBER_SERVICES_FUNCTIONALITY
     AFTER INSERT OR UPDATE ON PASSENGERS_DATA
 DECLARE

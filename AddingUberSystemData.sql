@@ -1,3 +1,4 @@
+/* Adding data into passengers will automatically add data into the Uber System using trigger */
 DECLARE
     PROCEDURE_OUTPUT NUMBER;
     IS_VALID_OFFICER NUMBER;
@@ -15,5 +16,7 @@ BEGIN
 END;
 
 SELECT * FROM UBER_SERVICES;
+
+CREATE VIEW UBER_SERVICES_VIEW AS SELECT * FROM UBER_SERVICES;
 
 COMMIT;

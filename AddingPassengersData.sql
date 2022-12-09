@@ -38,4 +38,6 @@ END;
 /* Showing passengers data which is inserted into the database */
 SELECT * FROM PASSENGERS_DATA;
 
+CREATE VIEW PASSENGERS_DATA_VIEW AS SELECT * FROM PASSENGERS_DATA;
+
 COMMIT;

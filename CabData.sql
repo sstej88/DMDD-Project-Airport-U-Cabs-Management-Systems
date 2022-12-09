@@ -1,3 +1,7 @@
+/*
+    Problem Statement: Create a table to store the cab id, cab number of a car and associate each cab with the registered driver in the Uber.
+    Outline: We are making our data strong to assign a cab full fledged to the passenger we get in an airport.
+*/
 CREATE TABLE CAB_DETAILS 
 (
     CAB_ID NUMBER(4) GENERATED ALWAYS as IDENTITY(START WITH 1111 INCREMENT BY 1),
@@ -11,6 +15,7 @@ CREATE TABLE CAB_DETAILS
     CONSTRAINT FK_CAB_DETAILS FOREIGN KEY (DRIVER_ID) REFERENCES DRIVER_DETAILS (DRIVER_ID)
 );
 
+/* Procedure to add the details of cab and corresponding driver in the database */
 CREATE OR REPLACE PROCEDURE ADD_CAB_TO_DATABASE 
 (
     INPUT_CAB_NUMBER IN VARCHAR2,
@@ -40,4 +45,5 @@ BEGIN
     END IF;
 END;
 
+/* Commiting the data */
 COMMIT;
