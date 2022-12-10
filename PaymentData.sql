@@ -32,6 +32,9 @@ BEGIN
     UPDATE AIRPORT_TAXI_BOOKING_MACHINE SET TAXI_BOOKING_STATUS=1 WHERE PASSENGER_ID=INPUT_PASSENGER_ID;
     UPDATE PASSENGERS_DATA SET TAXI_BOOKING_STATUS=1 WHERE PASSENGER_ID=INPUT_PASSENGER_ID;
     DBMS_OUTPUT.PUT_LINE('Payment is done successfully! Please check the Taxi vending machine for update');
+    EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('EXCEPTION OCCURED DURING PAYMENT DETAILS ADDTION');
 END;
 
 /* When users make a payment in the Airport Cab Vending Machine, this function will be called inside */

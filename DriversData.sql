@@ -23,6 +23,9 @@ AS
 BEGIN
     INSERT INTO DRIVER_DETAILS (DRIVER_NAME) VALUES (INPUT_DRIVER_NAME);
     DBMS_OUTPUT.PUT_LINE('DRIVER WITH NAME '||INPUT_DRIVER_NAME||' IS INSERTED');
+    EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('DRIVER CANNOT BE ADDED DUE TO EXCEPTION');
 END;
 
 /*
@@ -37,6 +40,9 @@ BEGIN
     FROM DRIVER_DETAILS
     WHERE DRIVER_ID = INPUT_DRIVER_ID;
     RETURN OUTPUT_IS_DRIVER_EXISTING;
+    EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('DRIVER EXISTENCE IS NOT VERIFIED');
 END;
 
 /* Since uber is already having the data of all drivers with it, to associate the driver to the cab, they can just extract name of driver from driver ID. The function is written as follows. */
@@ -49,6 +55,9 @@ BEGIN
     FROM DRIVER_DETAILS
     WHERE DRIVER_ID = INPUT_DRIVER_ID;
     RETURN OUTPUT_NAME;
+    EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('DRIVER NAME IS NOT VERIFIED');
 END;
 
 /* Similar to above function, we need to get the rating of the driver from the database. So it is retrieved in this manner. */
@@ -61,6 +70,9 @@ BEGIN
     FROM DRIVER_DETAILS
     WHERE DRIVER_ID = INPUT_DRIVER_ID;
     RETURN OUTPUT_RATING;
+    EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('DRIVER RATING IS NOT VERIFIED');
 END;
 
 /* Commiting the data */
