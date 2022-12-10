@@ -158,6 +158,8 @@ END;
 
 DROP TABLE UBER_SERVICES;
 
+COMMIT;
+
 /*
     Manually adding into Uber Services. However usually these will be added by trigger UBER_SERICVICES_FUNCTIONALITY
 */
