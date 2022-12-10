@@ -1,3 +1,7 @@
+/*
+    Problem Statement: Create a table named Airport Taxi Booking Machine. This is the table which will be shown to the user in the airport
+    Outline: This table has columns taxi booking status which is by default 0. When a user makes a payment and payment is successful, then taxi booking status will be changed to 1 and slip will be printed.
+*/
 CREATE TABLE AIRPORT_TAXI_BOOKING_MACHINE 
 (
     PASSENGER_ID NUMBER(12) UNIQUE NOT NULL,
@@ -15,6 +19,7 @@ CREATE TABLE AIRPORT_TAXI_BOOKING_MACHINE
 
 ALTER TABLE AIRPORT_TAXI_BOOKING_MACHINE ADD FOREIGN KEY (PASSENGER_ID) REFERENCES PASSENGERS_DATA (PASSENGER_ID);
 
+/* Function to get passenger name by taking passenger ID */
 CREATE OR REPLACE FUNCTION GET_PASSENGER_NAME_FROM_PASSENGER_ID (INPUT_PASSENGER_ID NUMBER) RETURN VARCHAR2
 AS
     OUTPUT_PASSENGER_NAME VARCHAR2(60);
@@ -23,6 +28,7 @@ BEGIN
     RETURN OUTPUT_PASSENGER_NAME;
 END;
 
+/* Function to get passenger destination address by taking passenger ID */
 CREATE OR REPLACE FUNCTION GET_PASSENGER_DESTINATION_ADDRESS (INPUT_PASSENGER_ID NUMBER) RETURN VARCHAR2
 AS
     OUTPUT_DESTINATION_ADDRESS VARCHAR2(60);
@@ -31,6 +37,7 @@ BEGIN
     RETURN OUTPUT_DESTINATION_ADDRESS;
 END;
 
+/* Procedure to get all the cab details from the Cab Details */
 CREATE OR REPLACE PROCEDURE GET_CAB_DETAILS (
     INPUT_DRIVER_ID IN NUMBER,
     OUTPUT_CAB_NUMBER OUT VARCHAR2,
@@ -46,6 +53,7 @@ BEGIN
     SELECT DRIVER_RATING INTO OUTPUT_DRIVER_RATING FROM CAB_DETAILS WHERE DRIVER_ID=INPUT_DRIVER_ID;
 END;
 
+/* Trigger to insert data into the taxi booking machine. This data will be shown to the newly landed passengers */
 CREATE OR REPLACE TRIGGER INSERT_AND_DISPLAY_PASSENGER_DATA_ON_AIRPORT_TAXI_BOOKING_MACHINE
     AFTER INSERT OR UPDATE ON UBER_SERVICES
 DECLARE

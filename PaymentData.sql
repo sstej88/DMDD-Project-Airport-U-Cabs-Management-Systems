@@ -1,3 +1,7 @@
+/*
+    Problem Statement: Payment details are added into this table. When payment details are added into the database, the corresponding passenger will get the slip printed along with the cab details and driver details.
+    Outline: This will contain the payment information of the passenger and will assign the cab to them.
+*/
 CREATE TABLE PAYMENT_DETAILS 
 (
     PAYMENT_ID NUMBER(12) GENERATED ALWAYS as IDENTITY(START WITH 121212121212 INCREMENT BY 2),
@@ -11,6 +15,7 @@ ALTER TABLE PAYMENT_DETAILS ADD PRIMARY KEY (PAYMENT_ID);
 
 ALTER TABLE PAYMENT_DETAILS ADD FOREIGN KEY (PASSENGER_ID) REFERENCES PASSENGERS_DATA (PASSENGER_ID);
 
+/* Procedure to add the details to the payment table and will change the required values to the passengers data as well as in the Uber system */
 CREATE OR REPLACE PROCEDURE ADD_PAYMENT_DETAILS 
 (
     INPUT_PASSENGER_ID IN NUMBER,
@@ -25,9 +30,11 @@ BEGIN
     UPDATE AIRPORT_TAXI_BOOKING_MACHINE SET PAYMENT_ID=(SELECT PAYMENT_ID FROM PAYMENT_DETAILS WHERE PASSENGER_ID=INPUT_PASSENGER_ID) WHERE PASSENGER_ID=INPUT_PASSENGER_ID;
     UPDATE AIRPORT_TAXI_BOOKING_MACHINE SET CARD_NUMBER=(SELECT CARD_NUMBER FROM PAYMENT_DETAILS WHERE PASSENGER_ID=INPUT_PASSENGER_ID) WHERE PASSENGER_ID=INPUT_PASSENGER_ID;
     UPDATE AIRPORT_TAXI_BOOKING_MACHINE SET TAXI_BOOKING_STATUS=1 WHERE PASSENGER_ID=INPUT_PASSENGER_ID;
+    UPDATE PASSENGERS_DATA SET TAXI_BOOKING_STATUS=1 WHERE PASSENGER_ID=INPUT_PASSENGER_ID;
     DBMS_OUTPUT.PUT_LINE('Payment is done successfully! Please check the Taxi vending machine for update');
 END;
 
+/* When users make a payment in the Airport Cab Vending Machine, this function will be called inside */
 DECLARE
     BILLING_ADDRESS VARCHAR2(60);
 BEGIN
