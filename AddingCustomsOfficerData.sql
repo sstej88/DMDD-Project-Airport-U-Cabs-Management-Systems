@@ -3,6 +3,8 @@
     Outline: Admin will enter the data into the customs officer database
 */
 
+/* It is just to show the functionality of the table. Final running will use this table */
+
 /* TRUNCATING TABLE CUSTOMS_DATA */
 TRUNCATE TABLE CUSTOMS_OFFICERS;
 
